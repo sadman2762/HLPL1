@@ -12,13 +12,11 @@ int has_matching_parity(int *numbers, int length) {
 }
 
 int main() {
-    int num_test_cases;
-    scanf("%d", &num_test_cases);
-
-    for (int i = 0; i < num_test_cases; i++) {
-        int length;
+    int length;
+    while (1) {
         scanf("%d", &length);
-
+        if (length == 0) break;
+        
         int numbers[length];
         for (int j = 0; j < length; j++) {
             scanf("%d", &numbers[j]);

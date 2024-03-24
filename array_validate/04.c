@@ -1,10 +1,8 @@
 #include <stdio.h>
 
-int has_matching_parity(int *numbers, int length) {
-    for (int i = 0; i < length; i++) {
-        if ((numbers[i] % 2 == 0 && i % 2 == 0) || (numbers[i] % 2 != 0 && i % 2 != 0)) {
-            continue;
-        } else {
+int is_monotone_decreasing(int *numbers, int length) {
+    for (int i = 1; i < length; i++) {
+        if (numbers[i] > numbers[i - 1]) {
             return 0; // False
         }
     }
@@ -24,7 +22,7 @@ int main() {
             scanf("%d", &numbers[j]);
         }
 
-        printf("%s\n", has_matching_parity(numbers, length) ? "True" : "False");
+        printf("%s\n", is_monotone_decreasing(numbers, length) ? "True" : "False");
     }
 
     return 0;
