@@ -25,4 +25,4 @@ int main(){
         printf("%s\n",result?"True":"False");
     }
     return EXIT_SUCCESS;
-}
+} 

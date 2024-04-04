@@ -2,6 +2,7 @@
 #include<stdlib.h>
 
 int is_twisting(int* numbers, int length){
+    
     for(int i=0;i<length-1;i++){
         if((numbers[i]>=0 && numbers[i+1]>=0) || (numbers[i]<0 && numbers[i-1]<0)){
             return 0;
@@ -18,12 +19,16 @@ int main(){
         int length=0;
         scanf("%d",&length);
         int numbers[length];
+        if(length == 1){
+            printf("undefined\n");
+        }
+        else{
 
         for(int j=0;j<length;j++){
             scanf("%d",&numbers[j]);
         }
         int result=is_twisting(numbers,length);
         printf("%s\n",result?"True":"False");
-    }
+    }}
     return EXIT_SUCCESS;
 }
