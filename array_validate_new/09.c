@@ -13,7 +13,7 @@ int is_monotone_increasing(int* numbers,int length){
 int main(){
     while(1){
         int n;
-        (scanf("%d",&n)==EOF);
+        scanf("%d",&n);
         if(n==0){
             break;
         }

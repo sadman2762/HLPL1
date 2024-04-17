@@ -3,7 +3,7 @@
 
 int count_of_decreasing_neighbours(int* numbers,int length){
     int count=0;
-    for(int i=0;i<length;i++){
+    for(int i=1;i<length;i++){
         if(numbers[i]<=numbers[i-1]){
             count++;
         }
