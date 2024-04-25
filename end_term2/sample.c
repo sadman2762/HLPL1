@@ -11,19 +11,19 @@ typedef struct {
 
 
 int compare_tracks(const void *a, const void *b) {
-    TRACK *track1 = (TRACK *)a;
-    TRACK *track2 = (TRACK *)b;
+    TRACK *left = (TRACK *)a;
+    TRACK *right = (TRACK *)b;
 
     
-    if (track1->plays != track2->plays)
-        return -(track1->plays - track2->plays);
+    if (left->plays != right->plays)
+        return -(left->plays - right->plays);
 
     
-    if (track1->length != track2->length)
-        return (track1->length - track2->length);
+    if (left->length != right->length)
+        return (left->length - right->length);
 
     
-    return strcmp(track1->title, track2->title);
+    return strcmp(left->title, right->title);
 }
 
 
