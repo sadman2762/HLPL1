@@ -10,7 +10,7 @@ typedef struct {
 } TRACK;
 
 
-int compare_tracks(const void *a, const void *b) {
+int cmp(const void *a, const void *b) {
     TRACK *left = (TRACK *)a;
     TRACK *right = (TRACK *)b;
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
     fclose(fin);
 
     
-    qsort(tracks, length, sizeof(TRACK), compare_tracks);
+    qsort(tracks, length, sizeof(TRACK), cmp);
 
     
     if (argc < 3) {
