@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     fclose(fout);
 
     
-    printf("%.6f\n", query(tracks, length));
+    printf("%f\n", query(tracks, length));
 
     return 0;
 }
