@@ -17,11 +17,10 @@ char* delete_consonant(char* origin){
 
 int main(){
     char line[101];
-
-    while(1){
-        gets(line);
-        if(strcmp(line,"")==0)
-        break;
+   
+    while(strcmp(gets(line),"")!= 0){
+        
+        
         char* result = delete_consonant(line);
         puts(result);
         free(result);
