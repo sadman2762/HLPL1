@@ -11,8 +11,8 @@ typedef struct {
 
 
 int compare_tracks(const void *a, const void *b) {
-    const TRACK *track1 = (const TRACK *)a;
-    const TRACK *track2 = (const TRACK *)b;
+    TRACK *track1 = (TRACK *)a;
+    TRACK *track2 = (TRACK *)b;
 
     
     if (track1->plays != track2->plays)
