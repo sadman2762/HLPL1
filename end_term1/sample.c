@@ -47,10 +47,10 @@ int main(int argc, char *argv[]) {
         return 2;
     }
     
-    char line[102];
+    char line[101];
     AIRPORT airports[20];
     int length = 0;
-    while(fgets(line, 102, fin))
+    while(fgets(line, 101, fin))
     {
         strcpy(airports[length].name, strtok(line, ";"));
         strcpy(airports[length].city, strtok(NULL, ";"));
