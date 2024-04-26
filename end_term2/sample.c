@@ -10,20 +10,20 @@ typedef struct {
 } TRACK;
 
 
-int compare_tracks(const void *a, const void *b) {
-    const TRACK *track1 = (const TRACK *)a;
-    const TRACK *track2 = (const TRACK *)b;
+int cmp(const void *a, const void *b) {
+    TRACK *left = (TRACK *)a;
+    TRACK *right = (TRACK *)b;
 
     
-    if (track1->plays != track2->plays)
-        return -(track1->plays - track2->plays);
+    if (left->plays != right->plays)
+        return -(left->plays - right->plays);
 
     
-    if (track1->length != track2->length)
-        return (track1->length - track2->length);
+    if (left->length != right->length)
+        return (left->length - right->length);
 
     
-    return strcmp(track1->title, track2->title);
+    return strcmp(left->title, right->title);
 }
 
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
     fclose(fin);
 
     
-    qsort(tracks, length, sizeof(TRACK), compare_tracks);
+    qsort(tracks, length, sizeof(TRACK), cmp);
 
     
     if (argc < 3) {
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     fclose(fout);
 
     
-    printf("%.6f\n", query(tracks, length));
+    printf("%f\n", query(tracks, length));
 
     return 0;
 }
