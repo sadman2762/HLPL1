@@ -1,5 +1,3 @@
-//              N-test-cases
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,81 +16,70 @@ int cmp(const void *a, const void *b)
     AIRPORT *right = (AIRPORT *)b;
 
     if (left->runways != right->runways)
+    {
         return -(left->runways - right->runways);
+    }
 
     if (left->time != right->time)
+    {
         return -(left->time - right->time);
+    }
 
     return strcmp(left->name, right->name);
 }
 
-int query(AIRPORT *airports, int length)
-{
-    int max = airports[0].runways;
-    for (int i = 1; i < length; i++)
-    {
-        if (airports[i].runways > max)
-        {
-            max = airports[i].runways;
-        }
-    }
-    return max;
-}
-
 int main(int argc, char *argv[])
 {
-    if (argc < 2)
+    if (argc == 1)
     {
-        fprintf(stderr, "No input file specified.\n");
+        fprintf(stderr, "The first command-line argument is missing.\n");
         return 1;
     }
-    FILE *fin = fopen(argv[1], "r");
-
-    if (!fin)
+    FILE *in = fopen(argv[1], "r");
+    if (!in)
     {
-        fprintf(stderr, "Input file does not exist.\n");
+        fprintf(stderr, "%s cannot be opened.\n", argv[1]);
         return 2;
     }
 
-    char line[101];
-    fgets(line, sizeof(line), fin);
-    int length = atoi(line);
-
+    char line[102];
+    int length = atoi(fgets(line, 102, in));
     AIRPORT airports[length];
 
     for (int i = 0; i < length; i++)
     {
-        fgets(line,101,fin);
+        fgets(line, 102, in);
+        line[strlen(line) - 1] = '\0';
+
         strcpy(airports[i].name, strtok(line, ";"));
         strcpy(airports[i].city, strtok(NULL, ";"));
         airports[i].runways = atoi(strtok(NULL, ";"));
         airports[i].time = atoi(strtok(NULL, ";"));
-        
     }
 
-    fclose(fin);
+    fclose(in);
 
     qsort(airports, length, sizeof(AIRPORT), cmp);
 
-    if (argc < 3)
+    if (argc == 2)
     {
-        fprintf(stderr, "No output file specified.\n");
+        fprintf(stderr, "The second command-line argument is missing.\n");
         return 3;
     }
-
-    FILE *fout = fopen(argv[2], "w");
-    if (!fout)
+    FILE *out = fopen(argv[2], "w");
+    if (!out)
     {
-        fprintf(stderr, "Output file cannot be opened\n");
+        fprintf(stderr, "%s cannot be opened.\n", argv[2]);
         return 4;
     }
 
+    fprintf(out, "%d\n", length);
     for (int i = 0; i < length; i++)
-        fprintf(fout, "%s;%s;%d;%d\n", airports[i].name, airports[i].city, airports[i].runways, airports[i].time);
+    {
+        fprintf(out, "%s;%s;%d;%d\n", airports[i].name, airports[i].city, airports[i].runways, airports[i].time);
+    }
 
-    fclose(fout);
-
-    printf("%d\n", query(airports, length));
+    fclose(out);
 
     return EXIT_SUCCESS;
 }
