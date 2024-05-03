@@ -1,98 +1,33 @@
-//              N-test-cases
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-typedef struct
-{
-    char name[31];
-    char city[31];
-    int runways;
-    int time;
-} AIRPORT;
+int find_divisors(int num, int *divisors, int *count) {
+    *count = 0;
+    divisors = (int)malloc(1 * sizeof(int)); // Allocate memory for one integer
 
-int cmp(const void *a, const void *b)
-{
-    AIRPORT *left = (AIRPORT *)a;
-    AIRPORT *right = (AIRPORT *)b;
-
-    if (left->runways != right->runways)
-        return -(left->runways - right->runways);
-
-    if (left->time != right->time)
-        return -(left->time - right->time);
-
-    return strcmp(left->name, right->name);
-}
-
-int query(AIRPORT *airports, int length)
-{
-    int max = airports[0].runways;
-    for (int i = 1; i < length; i++)
-    {
-        if (airports[i].runways > max)
-        {
-            max = airports[i].runways;
+    int i;
+    for (i = 1; i <= num; i++) {
+        if (num % i == 0) {
+            divisors[*count] = i;
+            (*count)++; // Increment count of divisors
+            divisors = (int)realloc(*divisors, (*count + 1) * sizeof(int)); // Reallocate memory
         }
     }
-    return max;
+    return *count;
 }
 
-int main(int argc, char *argv[])
-{
-    if (argc < 2)
-    {
-        fprintf(stderr, "No input file specified.\n");
-        return 1;
+int main() {
+    int num, count;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    int arr[100];
+    find_divisors(num, arr, &count);
+
+    printf("Divisors: ");
+    for (int i = 0; i < count; i++) {
+        printf("%d ", arr[i]);
     }
-    FILE *fin = fopen(argv[1], "r");
+    printf("\n");
 
-    if (!fin)
-    {
-        fprintf(stderr, "Input file does not exist.\n");
-        return 2;
-    }
-
-    char line[101];
-    fgets(line, sizeof(line), fin);
-    int length = atoi(line);
-
-    AIRPORT airports[length];
-
-    for (int i = 0; i < length; i++)
-    {
-        fgets(line,101,fin);
-        strcpy(airports[i].name, strtok(line, ";"));
-        strcpy(airports[i].city, strtok(NULL, ";"));
-        airports[i].runways = atoi(strtok(NULL, ";"));
-        airports[i].time = atoi(strtok(NULL, ";"));
-        
-    }
-
-    fclose(fin);
-
-    qsort(airports, length, sizeof(AIRPORT), cmp);
-
-    if (argc < 3)
-    {
-        fprintf(stderr, "No output file specified.\n");
-        return 3;
-    }
-
-    FILE *fout = fopen(argv[2], "w");
-    if (!fout)
-    {
-        fprintf(stderr, "Output file cannot be opened\n");
-        return 4;
-    }
-
-    for (int i = 0; i < length; i++)
-        fprintf(fout, "%s;%s;%d;%d\n", airports[i].name, airports[i].city, airports[i].runways, airports[i].time);
-
-    fclose(fout);
-
-    printf("%d\n", query(airports, length));
-
-    return EXIT_SUCCESS;
+    return 0;
 }
