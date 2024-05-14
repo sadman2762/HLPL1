@@ -36,7 +36,7 @@ int query(AIRPORT * airports, int length) {
 
 int main(int argc, char *argv[]) {
 
-    if (argc < 2) {
+    if (argc == 1) {
         fprintf(stderr, "No input file specified.\n");
         return 1;
     }
@@ -47,11 +47,12 @@ int main(int argc, char *argv[]) {
         return 2;
     }
     
-    char line[101];
+    char line[102];
     AIRPORT airports[20];
     int length = 0;
-    while(fgets(line, 101, fin))
-    {
+    while(fgets(line, 102, fin))
+    {   
+        line[strlen(line)-1] = '\0';
         strcpy(airports[length].name, strtok(line, ";"));
         strcpy(airports[length].city, strtok(NULL, ";"));
         airports[length].runways = atoi(strtok(NULL, ";"));
@@ -61,14 +62,11 @@ int main(int argc, char *argv[]) {
 
     fclose(fin);
 
-    /*
-    for(int i = 0; i < length; i++)
-        printf("%s %s %d %d\n", airports[i].name, airports[i].city, airports[i].runways, airports[i].time);
-    */
+   
 
     qsort(airports, length, sizeof(AIRPORT), cmp);
 
-    if (argc < 3) {
+    if (argc == 2) {
         fprintf(stderr, "No output file specified.\n");
         return 3;
     }

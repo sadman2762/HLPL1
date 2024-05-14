@@ -42,10 +42,12 @@ int main(int argc, char *argv[]) {
         return 2;
     }
     
-    char line[301];
+    char line[302];
     AIRCRAFT aircrafts[52];
     int length = 0;
-    while (fgets(line, 301, fin) != NULL) {
+    while (1) {
+    fgets(line, 302, fin);
+    line[strlen(line)-1]= '\0';
     if (strcmp(line, "END") == 0) break;
     strcpy(aircrafts[length].manufacturer, strtok(line, ","));
     strcpy(aircrafts[length].model, strtok(NULL, ","));
@@ -57,7 +59,7 @@ int main(int argc, char *argv[]) {
     
     qsort(aircrafts, length, sizeof(AIRCRAFT), cmp);
 
-    if (argc < 3) {
+    if (argc ==2) {
         fprintf(stderr, "No output file specified.\n");
         return 3;
     }

@@ -37,7 +37,7 @@ double query(TRACK *tracks, int length) {
 
 int main(int argc, char *argv[]) {
     
-     if (argc < 2) {
+     if (argc == 1) {
         fprintf(stderr, "No input file specified.\n");
         return 1;
     }
@@ -51,11 +51,12 @@ int main(int argc, char *argv[]) {
 
     
     
-    char line[61]; 
+    char line[62]; 
     TRACK tracks[30]; 
     int length = 0;
-    while(fgets(line, 61, fin))
-    {
+    while(fgets(line, 62, fin))
+    {   
+        line[strlen(line)-1]= '\0';
         strcpy(tracks[length].title, strtok(line, ";"));
         tracks[length].length = atoi(strtok(NULL, ";"));
         tracks[length].plays = atoi(strtok(NULL, ";"));
@@ -68,7 +69,7 @@ int main(int argc, char *argv[]) {
     qsort(tracks, length, sizeof(TRACK), cmp);
 
     
-    if (argc < 3) {
+    if (argc == 2) {
         fprintf(stderr, "No output file specified.\n");
         return 3;
     }
